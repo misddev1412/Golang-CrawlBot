@@ -62,7 +62,7 @@ func updateNewCron() {
 
 func deleteOldPost() {
 	db := rds.MysqlConnect()
-	models.deleteOldPost(db)
+	models.DeleteOldPost(db)
 	sqlDB, _ := db.DB()
 	sqlDB.Close()
 

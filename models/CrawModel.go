@@ -81,7 +81,7 @@ func DeletePostFromTmp(db *gorm.DB) int64 {
 
 }
 
-func deleteOldPost(db *gorm.DB) int64 {
+func DeleteOldPost(db *gorm.DB) int64 {
 	result := db.Exec("DELETE FROM posts WHERE HOUR(TIMEDIFF(NOW(), created_at)) > 24")
 	return result.RowsAffected
 
