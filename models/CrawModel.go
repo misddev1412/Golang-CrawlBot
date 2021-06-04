@@ -62,7 +62,7 @@ func UpdateCron(Cron Result, db *gorm.DB) int64 {
 }
 
 func UpdateNewCron(db *gorm.DB) int64 {
-	result := db.Exec("UPDATE users SET is_croned = ? WHERE is_croned = 1", "0")
+	result := db.Exec("UPDATE news_pages SET is_croned = ? WHERE is_croned = '1'", "0")
 
 	fmt.Println(result.RowsAffected)
 	return result.RowsAffected
