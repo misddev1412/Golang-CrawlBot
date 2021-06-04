@@ -33,7 +33,7 @@ type NewsList []NewsDetail
 
 func ListCrawl(db *gorm.DB) []Result {
 	var result []Result
-	db.Table("news_pages").Select("link", "xpath", "id", "language", "rate").Where("is_croned", "0").Limit(1).Scan(&result)
+	db.Table("news_pages").Select("link", "xpath", "id", "language", "rate").Where("is_croned", "0").Where("rate > ?", "0.00").Limit(1).Scan(&result)
 
 	return result
 }
