@@ -1,0 +1,24 @@
+image: ubuntu:latest
+
+before_script:
+    - apt-get update -qq
+    - apt-get install -qq git
+    - apt-get install sshpass
+    # Setup SSH deploy keys
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+
+deploy_production:
+    type: deploy
+    environment:
+        name: production
+        url: vikione.exchange
+    script:
+        - ssh admin@52.220.217.245 "cd /var/www/html/golang-aibot && git pull origin master && exit"
+    only:
+        - master
+    
