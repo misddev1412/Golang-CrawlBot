@@ -70,7 +70,7 @@ func UpdateNewCron(db *gorm.DB) int64 {
 
 func ListPostShuffle(db *gorm.DB) NewsList {
 	var news NewsList
-	db.Table("tmp_posts").Select("page_id", "topic_id", "slug", "title", "short_content", "target_link", "image", "language", "created_at", "updated_at").Order("RAND()").Scan(&news)
+	db.Table("tmp_posts").Select("page_id", "topic_id", "slug", "title", "short_content", "target_link", "image", "language", "created_at", "updated_at").Where("title != ''").Order("RAND()").Scan(&news)
 
 	return news
 }
